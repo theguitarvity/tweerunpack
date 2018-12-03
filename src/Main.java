@@ -16,11 +16,22 @@ public class Main {
 			File file = new File(args[0]);
 			//HuffmanD.expand(file);
 			CompacHuffman.expand(file);
-			
-			
-			
 		}
 
+	}
+
+	public static int buscar(String padrao, String txt) {
+		int M = padrao.length();
+		int N = txt.length();
+		for (int i = 0; i <= N - M; i++) {
+			int j;
+			for (j = 0; j < M; j++) {
+				if (txt.charAt(i+j) != padrao.charAt(j))
+					break;
+				if (j == M) return i;
+			}
+		}
+		return N;
 	}
 
 }
