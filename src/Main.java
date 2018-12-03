@@ -1,6 +1,6 @@
 
 
-import java.io.FileInputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
 
 import edu.princeton.cs.algs4.BinaryIn;
@@ -13,7 +13,9 @@ public class Main {
 			System.out.println("Aponte o arquivo de tweets compactados");
 		else {
 			BinaryIn in = new BinaryIn(args[0]);
-			HuffmanD.expansor(in);
+			File file = new File(args[0]);
+			//HuffmanD.expand(file);
+			CompacHuffman.expand(file);
 			
 			
 			

@@ -1,6 +1,7 @@
 
 
-import java.util.PriorityQueue;
+import java.io.File;
+
 import edu.princeton.cs.algs4.BinaryIn;
 import edu.princeton.cs.algs4.BinaryStdOut;
 
@@ -41,7 +42,31 @@ public class HuffmanD {
 			return this.frequencia - o.frequencia;
 		}
 	}
-
+	public static void expand(File file) {
+		BinaryIn in = new BinaryIn(file.getAbsolutePath());
+		System.out.println("ok");
+		try {
+			NoTrie trie = leTrie(in);
+			int n = in.readInt();
+			for (int i = 0; i < n; ++i) {
+				NoTrie no = trie;
+				do {
+					if (in.readBoolean())
+						no = no.dir;
+					else
+						no = no.esq;
+				System.out.println("ok");
+				} while (!no.ehFolha());
+				BinaryStdOut.write(no.simbolo);
+				System.out.println("ok");
+			}
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+		}
+		BinaryStdOut.close();
+	}
 	public static void expansor(BinaryIn in) {
 		NoTrie trie = leTrie(in);
 		int n = in.readInt();
@@ -64,4 +89,5 @@ public class HuffmanD {
 		else
 			return new NoTrie(leTrie(in), leTrie(in));
 	}
+	
 }

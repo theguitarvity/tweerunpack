@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 
+
 import edu.princeton.cs.algs4.*;
 
 public class CompacHuffman {
@@ -151,6 +152,16 @@ public class CompacHuffman {
 		writeTrie(x.left);
 		writeTrie(x.right);
 	}
+	private static Node readTrie(BinaryIn in ) {
+		
+        boolean isLeaf = in.readBoolean();
+        if (isLeaf) {
+            return new Node(BinaryStdIn.readChar(), -1, null, null);
+        }
+        else {
+            return new Node('\0', -1, readTrie(), readTrie());
+        }
+    }
 
 	// make a lookup table from symbols and their encodings
 	private static void buildCode(String[] st, Node x, String s) {
@@ -166,19 +177,22 @@ public class CompacHuffman {
 	 * Reads a sequence of bits that represents a Huffman-compressed message from
 	 * standard input; expands them; and writes the results to standard output.
 	 */
-	public static void expand() {
+	public static void expand(File file) {
 
 		// read in Huffman trie from input stream
-		Node root = readTrie();
+		BinaryIn in = new BinaryIn(file.getAbsolutePath());
+		System.out.println(in.isEmpty());
+		Node root = readTrie(in);
+		System.out.println(root);
 
 		// number of bytes to write
-		int length = BinaryStdIn.readInt();
-
+		int length = in.readInt();
+		System.out.println(length);
 		// decode using the Huffman trie
 		for (int i = 0; i < length; i++) {
 			Node x = root;
 			while (!x.ehFolha()) {
-				boolean bit = BinaryStdIn.readBoolean();
+				boolean bit = in.readBoolean();
 				if (bit)
 					x = x.right;
 				else
